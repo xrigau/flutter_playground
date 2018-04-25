@@ -9,12 +9,12 @@ ThemeData challenge01Theme() => ThemeData(
     );
 
 class Challenge01Page extends StatelessWidget {
-  static const String ROUTE = "/challenge01";
+  static const String ROUTE = '/challenge01';
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: new AppBar(
-          title: new Text("Profile"),
+        appBar: AppBar(
+          title: Text('Profile'),
           elevation: 0.0,
           leading: dummyIconButton(Icons.menu),
           actions: <Widget>[
@@ -36,14 +36,10 @@ class Challenge01Page extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Draggable<String>(
-                data: "test",
-                feedback: Text("feedback"),
-                child: CircleAvatar(
-                  radius: 50.0,
-                  child: FlutterLogo(
-                    size: 50.0,
-                  ),
+              CircleAvatar(
+                radius: 50.0,
+                child: FlutterLogo(
+                  size: 50.0,
                 ),
               ),
             ],
@@ -59,7 +55,7 @@ class Challenge01Page extends StatelessWidget {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             Text(
-              "Snowboarder, superhero and writer.\nSometimes I work at Google as\nExecutive Chairman",
+              'Snowboarder, superhero and writer.\nSometimes I work at Google as\nExecutive Chairman',
               style: Theme.of(context).textTheme.body2,
               textAlign: TextAlign.center,
             ),
