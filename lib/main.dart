@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/challenge01.dart';
 import 'package:flutter_playground/challenge02.dart';
+import 'package:flutter_playground/dragndrop.dart';
 import 'package:flutter_playground/recipes/recipes.dart';
 import 'package:flutter_playground/recipes/recipes_page.dart';
 
@@ -8,6 +9,7 @@ void main() => runApp(FlutterPlaygroundApp(<Page>[
       Page(Challenge01Page(), challenge01Theme, Challenge01Page.ROUTE, 'Challenge 01'),
       Page(Challenge02Page(), challenge02Theme, Challenge02Page.ROUTE, 'Challenge 02'),
       Page(RecipesPage(RecipesService()), recipesTheme, RecipesPage.ROUTE, 'Recipes'),
+      Page(DragAndDropPage(), dragAndDropTheme, DragAndDropPage.ROUTE, 'Drag and Drop'),
     ]));
 
 typedef ThemeData ThemeBuilder();
