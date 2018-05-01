@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData challenge01Theme() => ThemeData(
+ThemeData challenge00Theme() => ThemeData(
       primarySwatch: Colors.indigo,
       splashColor: Colors.indigo.shade500,
       primaryColor: Colors.indigo.shade600,
@@ -8,8 +8,8 @@ ThemeData challenge01Theme() => ThemeData(
       brightness: Brightness.dark,
     );
 
-class Challenge01Page extends StatelessWidget {
-  static String ROUTE = '/challenge01';
+class Challenge00Page extends StatelessWidget {
+  static const String ROUTE = '/challenge00';
 
   @override
   Widget build(BuildContext context) => Scaffold(

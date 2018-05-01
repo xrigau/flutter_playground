@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-ThemeData challenge02Theme() => ThemeData();
+ThemeData challenge01Theme() => ThemeData();
 
-class Challenge02Page extends StatelessWidget {
-  static const String ROUTE = '/challenge02';
+class Challenge01Page extends StatelessWidget {
+  static const String ROUTE = '/challenge01';
 
   @override
   Widget build(BuildContext context) => Scaffold(
