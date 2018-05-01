@@ -19,5 +19,7 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/challenge01/hero.jpg
+    - assets/challenge01/avatar.jpg
