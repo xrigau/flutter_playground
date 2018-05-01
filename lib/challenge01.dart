@@ -23,44 +23,83 @@ class Challenge01Page extends StatelessWidget {
 
   Widget _body(BuildContext context) => ListView(
         children: <Widget>[
-          _heroImage(),
+          _hero(context),
           _mainContent(context),
         ],
       );
 
-  Padding _mainContent(BuildContext context) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+  Widget _hero(BuildContext context) => Stack(
+        children: <Widget>[
+          _imageAndCategory(context),
+          _userAvatar(context),
+        ],
+      );
+
+  Widget _imageAndCategory(BuildContext context) => Column(
+        children: <Widget>[
+          _projectImage(context),
+          _category(context),
+        ],
+      );
+
+  Widget _projectImage(BuildContext context) => Image.asset('assets/challenge01/hero.jpg');
+
+  Widget _category(BuildContext context) => Padding(
+        padding: EdgeInsets.only(left: 16.0, top: 30.0),
+        child: Row(
+          children: <Widget>[
+            Icon(
+              Icons.videogame_asset,
+              size: 20.0,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.0),
+              child: Text(
+                'Game',
+                style: _Theme.of(context).category,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget _userAvatar(BuildContext context) => Positioned(
+        right: 48.0,
+        bottom: 2.0,
         child: Column(
           children: <Widget>[
-            _category(context),
+            CircleAvatar(
+              radius: 50.0,
+              child: CircleAvatar(
+                radius: 40.0,
+                backgroundImage: ExactAssetImage('assets/challenge01/avatar.jpg'),
+              ),
+              backgroundColor: Colors.white,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 1.0),
+              child: Text(
+                'Xavi R.',
+                style: _Theme.of(context).name,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Padding _mainContent(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: <Widget>[
             _projectName(context),
             _description(context),
             _readMore(context),
             _fundProgress(context),
             _fundInformation(context),
             _backProjectButton(context),
-            _userAvatar(context),
           ],
         ),
-      );
-
-  Widget _heroImage() => Image.asset('assets/challenge01/hero.jpg');
-
-  Widget _category(BuildContext context) => Row(
-        children: <Widget>[
-          Icon(
-            Icons.videogame_asset,
-            size: 20.0,
-            color: Colors.grey,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.0),
-            child: Text(
-              'Game',
-              style: _Theme.of(context).category,
-            ),
-          ),
-        ],
       );
 
   Widget _projectName(BuildContext context) => Padding(
@@ -129,36 +168,22 @@ class Challenge01Page extends StatelessWidget {
       );
 
   Widget _backProjectButton(BuildContext context) => Padding(
-        padding: EdgeInsets.all(20.0),
-        child: RaisedButton(
-          onPressed: () {},
-          padding: EdgeInsets.symmetric(horizontal: 48.0, vertical: 16.0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          child: Text(
-            'BACK THIS PROJECT',
-            style: _Theme.of(context).backThisProject,
-          ),
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 36.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: RaisedButton(
+                onPressed: () {},
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: Text(
+                  'BACK THIS PROJECT',
+                  style: _Theme.of(context).backThisProject,
+                ),
+              ),
+            ),
+          ],
         ),
-      );
-
-  Widget _userAvatar(BuildContext context) => Column(
-        children: <Widget>[
-          CircleAvatar(
-            radius: 50.0,
-            child: CircleAvatar(
-              radius: 40.0,
-              backgroundImage: ExactAssetImage('assets/challenge01/avatar.jpg'),
-            ),
-            backgroundColor: Colors.white,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 1.0),
-            child: Text(
-              'Xavi R.',
-              style: _Theme.of(context).name,
-            ),
-          ),
-        ],
       );
 }
 
