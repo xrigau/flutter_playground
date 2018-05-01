@@ -9,7 +9,7 @@ ThemeData challenge01Theme() => ThemeData(
     );
 
 class Challenge01Page extends StatelessWidget {
-  static const String ROUTE = '/challenge01';
+  static String ROUTE = '/challenge01';
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -36,10 +36,13 @@ class Challenge01Page extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
-                radius: 50.0,
-                child: FlutterLogo(
-                  size: 50.0,
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: CircleAvatar(
+                  radius: 50.0,
+                  child: FlutterLogo(
+                    size: 50.0,
+                  ),
                 ),
               ),
             ],
@@ -47,9 +50,12 @@ class Challenge01Page extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Eric Schmidt",
-                style: Theme.of(context).textTheme.display1,
+              Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  "Xavi Rigau",
+                  style: Theme.of(context).textTheme.display1,
+                ),
               ),
             ],
           ),
@@ -60,8 +66,68 @@ class Challenge01Page extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ]),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[]),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Theme.of(context).dividerColor, width: 2.0),
+                  bottom: BorderSide(color: Theme.of(context).dividerColor, width: 2.0),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Row(
+                  children: <Widget>[
+                    _profileInfoItem(context, '343', 'POSTS'),
+                    _profileInfoItem(context, '673,826', 'FOLLOWERS'),
+                    _profileInfoItem(context, '275', 'FOLLOWING'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.0),
+                  child: RaisedButton(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.perm_contact_calendar),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.0),
+                            child: Text("Follow"),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
+      );
+
+  Expanded _profileInfoItem(BuildContext context, String topText, String bottomText) => Expanded(
+        child: Column(
+          children: <Widget>[
+            Text(
+              topText,
+              style: Theme.of(context).textTheme.body1,
+            ),
+            Text(
+              bottomText,
+              style: Theme.of(context).textTheme.caption,
+            ),
+          ],
+        ),
       );
 
   IconButton dummyIconButton(IconData icon) => IconButton(
