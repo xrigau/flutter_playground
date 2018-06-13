@@ -23,3 +23,7 @@ flutter:
   assets:
     - assets/challenge01/hero.jpg
     - assets/challenge01/avatar.jpg
+    - assets/challenge02/venice01.jpg
+    - assets/challenge02/venice02.jpg
+    - assets/challenge02/venice03.jpg
+    - assets/recipes/pasta-alla-siciliana.jpg

@@ -10,3 +10,4 @@ build/
 
 mock-data/
 constants.dart
+out/
