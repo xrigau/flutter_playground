@@ -8,44 +8,72 @@ ThemeData challenge02Theme() => ThemeData(
 
 class Challenge02Page extends StatelessWidget {
   static const String ROUTE = '/challenge02';
+
   final List<Item> items = <Item>[
     Item(
       'assets/challenge02/venice02.jpg',
       'Natural\nScenery',
       'Venice',
-      _Alignment.START,
-      Colors.orange[400].withAlpha(200),
+      _Alignment.END,
+      Colors.orange[400],
     ),
     Item(
       'assets/challenge02/venice03.jpg',
       'Famous\nScenery',
       'Venice',
-      _Alignment.END,
-      Colors.blue[400].withAlpha(200),
+      _Alignment.START,
+      Colors.blue[400],
     ),
     Item(
       'assets/challenge02/venice01.jpg',
       'Build\nScenery',
       'Venice',
-      _Alignment.START,
-      Colors.pink[400].withAlpha(200),
+      _Alignment.END,
+      Colors.pink[400],
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 10.0; // 1.0 means normal animation speed.
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('CrowdFounder'),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
+    timeDilation = 5.0; // 1.0 means normal animation speed.
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('CrowdFounder'),
+          leading: backButton(context),
+          actions: <Widget>[
+            moreActions(),
+          ],
+          bottom: tabBar(),
         ),
+        body: _body(context),
       ),
-      body: _body(context),
     );
   }
+
+  IconButton backButton(BuildContext context) => IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () => Navigator.of(context).pop(),
+      );
+
+  IconButton moreActions() => IconButton(
+        icon: Icon(Icons.more_vert),
+        onPressed: () {},
+      );
+
+  TabBar tabBar() => TabBar(
+        tabs: <Widget>[
+          tab("SCENIC"),
+          tab("RESTAURANT"),
+          tab("GROGSHOP"),
+        ],
+      );
+
+  Widget tab(String text) => Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(text),
+      );
 
   Widget _body(BuildContext context) => ListView(
         itemExtent: 200.0,
@@ -59,10 +87,15 @@ class Challenge02Page extends StatelessWidget {
             alignment: item._alignment == _Alignment.START ? AlignmentDirectional.centerStart : AlignmentDirectional.centerEnd,
             children: <Widget>[
               _image(item),
-              _ItemInformation(item),
+              _itemInformation(item),
             ],
           ),
         ),
+      );
+
+  Widget _itemInformation(Item item) => Padding(
+        padding: EdgeInsets.all(8.0),
+        child: _ItemInformation(item),
       );
 
   Widget _image(Item item) => SizedBox(
@@ -83,45 +116,52 @@ class Challenge02Page extends StatelessWidget {
 
 class _ItemInformation extends StatelessWidget {
   final Item _item;
+  final bool opaque;
 
-  _ItemInformation(this._item);
+  _ItemInformation(this._item, {this.opaque = false});
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Hero(
-          tag: _item._imagePath + 'text',
-          child: Container(
-            color: _item._color,
-            child: SizedBox(
-              width: 210.0,
-              height: 190.0,
-              child: Column(
-                crossAxisAlignment: _item._alignment == _Alignment.START ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: _item._alignment == _Alignment.START ? 0.0 : 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          _item._title,
-                          style: _Theme.of(context).title,
-                        ),
-                        Text(
-                          _item._subtitle,
-                          style: _Theme.of(context).subtitle,
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+  Widget build(BuildContext context) => Hero(
+        tag: _item._imagePath + 'text',
+        child: Container(
+          color: opaque ? _item._color : _item._color.withAlpha(200),
+          child: SizedBox(
+            width: 200.0,
+            height: 190.0,
+            child: Column(
+              crossAxisAlignment: _item._alignment == _Alignment.START ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: _item._alignment == _Alignment.START ? 0.0 : 16.0),
+                  child: _ItemInformationContent(_item),
+                ),
+              ],
             ),
           ),
         ),
+      );
+}
+
+class _ItemInformationContent extends StatelessWidget {
+  final Item _item;
+
+  _ItemInformationContent(this._item);
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            _item._title,
+            style: _Theme.of(context).title,
+          ),
+          Text(
+            _item._subtitle,
+            style: _Theme.of(context).subtitle,
+          )
+        ],
       );
 }
 
@@ -131,13 +171,6 @@ class Challenge02DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('CrowdFounder'),
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
-        ),
         body: _body(context),
       );
 
@@ -146,6 +179,7 @@ class Challenge02DetailPage extends StatelessWidget {
           children: <Widget>[
             _image(),
             _info(),
+            _details(),
           ],
         ),
       );
@@ -162,24 +196,49 @@ class Challenge02DetailPage extends StatelessWidget {
         ),
       );
 
-  Widget _info() => Row(
-        children: <Widget>[
-          SizedBox(
-            width: 150.0,
-            height: 150.0,
-            child: Column(
+  Widget _info() => Card(
+        elevation: 3.0,
+        margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              width: 159.0,
+              height: 150.0,
+              child: Column(
+                children: <Widget>[
+                  Text("414.75"),
+                  Text("Area"),
+                  Text("34.3"),
+                  Text("Population"),
+                ],
+              ),
+            ),
+            Column(
               children: <Widget>[
-                Text("Foo"),
-                Text("Bar"),
+                _ItemInformation(
+                  _item,
+                  opaque: true,
+                ),
               ],
             ),
-          ),
-          Column(
-            children: <Widget>[
-              _ItemInformation(_item),
-            ],
-          ),
-        ],
+          ],
+        ),
+      );
+
+  Widget _details() => Card(
+        elevation: 3.0,
+        margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        child: Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text("Natural Scenery"),
+                Text("Venice"),
+                Text("Lorem ipsum"),
+              ],
+            ),
+          ],
+        ),
       );
 }
 
